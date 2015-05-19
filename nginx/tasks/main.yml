@@ -1,5 +1,22 @@
 - name: install nginx
-  apt: name={{ item }} state=present
-  with_items: nginx
+  apt: name=nginx state=present
   when: ansible_os_family == "Debian"
-  tags: [packages,nginx]
+  tags: [nginx]
+
+- name: copy nginx configuration file
+  template: src=nginx_site_config.j2
+            dest=/etc/nginx/sites-available/{{ application_name }}
+  tags: [nginx]
+
+- name: remove /etc/nginx/sites-enabled/default file
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  tags: [nginx]
+
+- name: create symlink to app
+  file: src=/etc/nginx/sites-available/{{ application_name }} dest=/etc/nginx/sites-enabled/{{ application_name }} state=link
+  notify: restart nginx
+  tags: [nginx]
+
+- name: ensure nginx service is started
+  service: name=nginx state=started enabled=yes
+  tags: [nginx]

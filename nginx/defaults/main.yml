@@ -1,0 +1,7 @@
+nginx_server_name: localhost
+nginx_client_max_body_size: 5M
+
+uwsgi_socket_path: /tmp/uwsgi.sock
+
+application_name: django
+application_static_folder_location: /var/www
