@@ -1,6 +1,10 @@
 #{{ ansible_managed }}
 server {
 {% for rule in nginx_site_availables[item] %}
-   {{rule}};
+{% if rule.find('\n') != -1 %}
+   {{rule.replace("\n","\n   ")}}
+{% else %}
+   {% if rule != "" %}{{ rule.replace(";",";\n      ").replace(" {"," {\n      ").replace(" }"," \n   }\n") }}{% if rule.find('{') == -1%};
+{% endif %}{% endif %}{% endif %}
 {% endfor %}
 }
