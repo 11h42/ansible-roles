@@ -1,0 +1,17 @@
+---
+- name: {{ APP_NAME }}
+  hosts: all
+  remote_user: root
+  sudo: yes
+
+  vars:
+    nginx_site_availables:
+      ynov:
+        - listen      80
+        - server_name {{ APP_FQDN }}
+        - charset     utf-8
+        - location ~ /static/ {root /var/www;}
+        - location / {include uwsgi_params;uwsgi_pass unix:/tmp/uwsgi.sock;}
+
+  roles:
+    - nginx
