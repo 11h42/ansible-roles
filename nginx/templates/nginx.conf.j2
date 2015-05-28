@@ -1,0 +1,23 @@
+#{{ ansible_managed }}
+
+user {{ nginx_user }} {{ nginx_group }};
+worker_processes {{ nginx_worker_processes }};
+pid {{ nginx_pid_file }};
+
+events {
+{% for v in nginx_events_params %}
+        {{ v }};
+{% endfor %}
+}
+
+http {
+
+        include {{ nginx_conf_dir }}/mime.types;
+        default_type application/octet-stream;
+{% for param in nginx_http_params %}
+        {{ param }};
+{% endfor %}
+
+        include {{ nginx_conf_dir }}/conf.d/*.conf;
+        include {{ nginx_conf_dir }}/sites-enabled/*;
+}

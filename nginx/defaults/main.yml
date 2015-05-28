@@ -1,7 +1,32 @@
-nginx_server_name: localhost
-nginx_client_max_body_size: 5M
+---
+nginx_conf_dir: /etc/nginx
 
-uwsgi_socket_path: /tmp/uwsgi.sock
+nginx_user: www-data
+nginx_group: "{{nginx_user}}"
 
-application_name: django
-application_static_folder_location: /var/www
+nginx_worker_processes: "{{ ansible_processor_vcpus }}"
+nginx_pid_file: /var/run/nginx.pid
+
+nginx_events_params:
+  - worker_connections 512
+
+nginx_log_dir: /var/log/nginx
+
+nginx_http_params:
+  - sendfile on
+  - tcp_nopush on
+  - tcp_nodelay on
+  - keepalive_timeout 65
+  - access_log {{nginx_log_dir}}/access.log
+  - error_log {{nginx_log_dir}}/error.log
+  - server_tokens off
+  - types_hash_max_size 2048
+  - gzip on
+
+nginx_site_availables:
+  default:
+    - listen 80
+    - server_name localhost
+    - charset utf-8
+    - root /usr/share/nginx/html
+    - index index.html

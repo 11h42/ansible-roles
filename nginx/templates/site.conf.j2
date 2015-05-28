@@ -1,0 +1,6 @@
+#{{ ansible_managed }}
+server {
+{% for rule in nginx_site_availables[item] %}
+   {{rule}};
+{% endfor %}
+}
