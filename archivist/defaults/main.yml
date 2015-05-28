@@ -1,0 +1,5 @@
+---
+app_name: app
+app_dir: "/usr/local/{{app_name}}"
+
+git_branch: master

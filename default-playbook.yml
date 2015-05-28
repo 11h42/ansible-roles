@@ -13,5 +13,11 @@
         - location ~ /static/ {root /var/www;}
         - location / {include uwsgi_params;uwsgi_pass unix:/tmp/uwsgi.sock;}
 
+    app_name: {{ APP_NAME }}
+
+    git_remote_url: {{ PROJECT_URL }}
+    git_branch: master
+
   roles:
     - nginx
+    - archivist

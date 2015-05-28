@@ -1,0 +1,10 @@
+---
+- name: Git archive application
+  local_action: command git archive --format zip --output app.zip --remote={{git_remote_url}} {{git_branch}}
+  sudo: no
+
+- name: Create app dir if not exists
+  file: path={{ app_dir }} state=directory mode=0755
+
+- name: Unarchive app
+  unarchive: src=app.zip dest={{ app_dir }}
