@@ -6,7 +6,7 @@
 
   vars:
     nginx_site_availables:
-      ynov:
+      default:
         - listen      80
         - server_name {{ APP_FQDN }}
         - charset     utf-8
