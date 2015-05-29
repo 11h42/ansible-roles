@@ -9,7 +9,7 @@ add submodule in roles/ folder
 
 copy default-playbook.yml
 
-    cp role/default-playbook.yml ${app_name}.yml
+    cp roles/default-playbook.yml ${app_name}.yml
     
 modify variables in the playbook to meet your need
 
