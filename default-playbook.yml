@@ -18,6 +18,10 @@
     git_remote_url: {{ PROJECT_URL }}
     git_branch: master
 
+    python_virtualenv_dir: "/usr/local/{{app_name}}/.env"
+    python3_enabled: true
+
   roles:
     - nginx
     - archivist
+    - python-virtualenv

@@ -1,0 +1,8 @@
+---
+- include: Debian.yml
+  when: ansible_os_family == "Debian"
+  tags: [debian,python]
+
+- include: FreeBSD.yml
+  when: ansible_os_family == "FreeBSD"
+  tags: [freebsd,python]

@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  author: Guillaume Vincent
+  description: python-virtualenv ansible role
+  company: Akema
+  license: BSD
+  min_ansible_version: 1.4
+  platforms:
+    - name: FreeBSD
+      versions:
+        - 10.1
+    - name: Ubuntu
+      versions:
+       - trusty
+dependencies: []

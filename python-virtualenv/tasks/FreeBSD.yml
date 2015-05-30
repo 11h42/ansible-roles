@@ -1,0 +1,22 @@
+---
+- name: Install python 27 and python 34
+  pkgng: name={{ item }} state=present
+  with_items:
+    - python27
+    - py27-setuptools
+    - py27-pip
+    - py27-virtualenv
+    - python34
+  when: ansible_os_family == "FreeBSD"
+  tags: [packages,python]
+
+- name: remove virtualenv folder
+  file: path={{ python_virtualenv_dir }} state=absent
+
+- name: create python 34 virtualenv
+  command: virtualenv -p python3.4 {{ python_virtualenv_dir }}
+  when: python3_enabled
+
+- name: create python 27 virtualenv
+  command: virtualenv {{ python_virtualenv_dir }}
+  when: not python3_enabled
