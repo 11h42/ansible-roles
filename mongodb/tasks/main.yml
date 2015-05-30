@@ -1,0 +1,20 @@
+---
+- name: import the mongodb public GPG Key
+  apt_key: url=http://docs.mongodb.org/10gen-gpg-key.asc id=7F0CEB10 state=present
+  when: ansible_os_family == "Debian"
+  tags: [debian,mongodb]
+
+- name: add apt mongo repository
+  apt_repository: repo="deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" update_cache=yes
+  when: ansible_os_family == "Debian"
+  tags: [debian,mongodb]
+
+- name: install mongodb
+  apt: pkg=mongodb-org state=present
+  when: ansible_os_family == "Debian"
+  tags: [debian,mongodb]
+
+- name: ensure mongodb is started
+  service: name=mongod state=started enabled=yes
+  when: ansible_os_family == "Debian"
+  tags: [debian,mongodb]

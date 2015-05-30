@@ -25,3 +25,4 @@
     - nginx
     - archivist
     - python-virtualenv
+    - mongodb
