@@ -27,19 +27,6 @@
         - "location ~ /static/ {root {{app_dir}}/www;}"
         - "location / {include uwsgi_params;uwsgi_pass unix:/tmp/uwsgi.sock;}"
 
-    supervisor_process:
-      app: # CHANGE ME put the name of your application
-        - "[program:app]" # put program:application_name  (e.g. awesome_app: )
-        - "command={{python_virtualenv_dir}}/bin/uwsgi --ini {{uwsgi_config_dir}}/{{app_name}}.ini"
-        - "numprocs=1"
-        - "process_name={{app_name}}"
-        - "stdout_logfile={{log_dir}}/{{app_name}}.supervisor.log"
-        - "loglevel=debug"
-        - "redirect_stderr=true"
-        - "autostart=true"
-        - "autorestart=true"
-        - "user={{app_user}}"
-
     uwsgi_configs:
       app: # CHANGE ME put the name of your application  (e.g. awesome_app: )
         - "[uwsgi]"
@@ -55,13 +42,26 @@
         - "chmod-socket = 666"
         - "logto = {{log_dir}}/{{app_name}}.uwsgi.log"
 
+    supervisor_process:
+      app: # CHANGE ME put the name of your application
+        - "[program:app]" # put program:application_name  (e.g. awesome_app: )
+        - "command={{python_virtualenv_dir}}/bin/uwsgi --ini {{uwsgi_config_dir}}/{{app_name}}.ini"
+        - "numprocs=1"
+        - "process_name={{app_name}}"
+        - "stdout_logfile={{log_dir}}/{{app_name}}.supervisor.log"
+        - "loglevel=debug"
+        - "redirect_stderr=true"
+        - "autostart=true"
+        - "autorestart=true"
+        - "user={{app_user}}"
+
   roles: # remove role you dont need
     - user
     - nginx
     - archivist
     - python-virtualenv
     - mongodb
-    - supervisor
     - uwsgi
+    - supervisor
     - logging
 
