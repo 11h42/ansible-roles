@@ -1,26 +1,26 @@
 ---
-- name: {{ APP_NAME }}
+- name: {{ APP_NAME }} # CHANGE ME
   hosts: all
   remote_user: root
   sudo: yes
 
   vars:
-    app_name: {{ APP_NAME }}
+    app_name: {{ APP_NAME }} # CHANGE ME
     app_user: "{{app_name}}"
-    app_fqdn: "{{app_name}}.fr"
+    app_fqdn: "{{app_name}}.fr" # CHANGE ME
     app_dir: "/usr/local/{{app_name}}"
     log_dir: "{{app_dir}}/log"
 
     python_virtualenv_dir: "{{app_dir}}/.env"
     python3_enabled: true
 
-    git_remote_url: {{ PROJECT_URL }}
+    git_remote_url: {{ PROJECT_URL }}  # CHANGE ME
     git_branch: master
 
     uwsgi_config_dir: "{{app_dir}}/uwsgi"
 
     nginx_site_availables:
-      app: # CHANGE_ME put the name of your application
+      app: # CHANGE ME put the name of your application (e.g. awesome_app: )
         - "listen      80"
         - "server_name {{app_fqdn}}"
         - "charset     utf-8"
@@ -28,8 +28,8 @@
         - "location / {include uwsgi_params;uwsgi_pass unix:/tmp/uwsgi.sock;}"
 
     supervisor_process:
-      app: # CHANGE_ME put the name of your application
-        - "[program:app]"
+      app: # CHANGE ME put the name of your application
+        - "[program:app]" # put program:application_name  (e.g. awesome_app: )
         - "command={{python_virtualenv_dir}}/bin/uwsgi --ini {{uwsgi_config_dir}}/{{app_name}}.ini"
         - "numprocs=1"
         - "process_name={{app_name}}"
@@ -41,7 +41,7 @@
         - "user={{app_user}}"
 
     uwsgi_configs:
-      app: # CHANGE_ME put the name of your application
+      app: # CHANGE ME put the name of your application  (e.g. awesome_app: )
         - "[uwsgi]"
         - "chdir = {{app_dir}}"
         - "env = {{python_virtualenv_dir}}"
@@ -55,10 +55,13 @@
         - "chmod-socket = 666"
         - "logto = {{log_dir}}/{{app_name}}.uwsgi.log"
 
-  roles:
+  roles: # remove role you dont need
+    - user
     - nginx
     - archivist
     - python-virtualenv
     - mongodb
     - supervisor
     - uwsgi
+    - logging
+
