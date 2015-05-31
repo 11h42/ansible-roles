@@ -24,7 +24,7 @@
         - "listen      80"
         - "server_name {{app_fqdn}}"
         - "charset     utf-8"
-        - "location ~ /static/ {root /var/www;}"
+        - "location ~ /static/ {root {{app_dir}}/www;}"
         - "location / {include uwsgi_params;uwsgi_pass unix:/tmp/uwsgi.sock;}"
 
     supervisor_process:
@@ -61,3 +61,4 @@
     - python-virtualenv
     - mongodb
     - supervisor
+    - uwsgi
