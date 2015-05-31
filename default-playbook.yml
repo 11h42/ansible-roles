@@ -24,7 +24,7 @@
         - "listen      80"
         - "server_name {{app_fqdn}}"
         - "charset     utf-8"
-        - "location ~ /static/ {root {{app_dir}}/www;}"
+        - "location ~ /(static|media)/ {root {{app_dir}}/www;}"
         - "location / {include uwsgi_params;uwsgi_pass unix:/tmp/uwsgi.sock;}"
 
     uwsgi_configs:

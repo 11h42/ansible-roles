@@ -9,9 +9,6 @@
     - python3.4
   tags: [packages,python]
 
-- name: remove virtualenv folder
-  file: path={{ python_virtualenv_dir }} state=absent
-
 - name: create python 34 virtualenv
   command: virtualenv -p python3 {{ python_virtualenv_dir }}
   when: python3_enabled

@@ -8,7 +8,7 @@ Role Variables
 
     python_virtualenv_dir: /tmp/.env
     python3_enabled: true
-
+    python_remove_virtualenv: false
 
 Example Playbook
 ----------------

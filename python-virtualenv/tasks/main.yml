@@ -1,4 +1,8 @@
 ---
+- name: remove virtualenv folder
+  file: path={{ python_virtualenv_dir }} state=absent
+  when: python_remove_virtualenv
+
 - include: Debian.yml
   when: ansible_os_family == "Debian"
   tags: [debian,python]
