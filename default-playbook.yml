@@ -17,10 +17,10 @@
     git_remote_url: {{ PROJECT_URL }}
     git_branch: master
 
-    uwsgi_config_dir: "{{app_dir}}/config"
+    uwsgi_config_dir: "{{app_dir}}/uwsgi"
 
     nginx_site_availables:
-      app:
+      app: # CHANGE_ME put the name of your application
         - "listen      80"
         - "server_name {{app_fqdn}}"
         - "charset     utf-8"
@@ -28,9 +28,9 @@
         - "location / {include uwsgi_params;uwsgi_pass unix:/tmp/uwsgi.sock;}"
 
     supervisor_process:
-      app:
+      app: # CHANGE_ME put the name of your application
         - "[program:app]"
-        - "command={{python_virtualenv_dir}}/bin/uwsgi --ini {{app_dir}}/config/uwsgi.ini"
+        - "command={{python_virtualenv_dir}}/bin/uwsgi --ini {{uwsgi_config_dir}}/{{app_name}}.ini"
         - "numprocs=1"
         - "process_name={{app_name}}"
         - "stdout_logfile={{log_dir}}/{{app_name}}.supervisor.log"
@@ -41,7 +41,7 @@
         - "user={{app_user}}"
 
     uwsgi_configs:
-      app:
+      app: # CHANGE_ME put the name of your application
         - "[uwsgi]"
         - "chdir = {{app_dir}}"
         - "env = {{python_virtualenv_dir}}"
