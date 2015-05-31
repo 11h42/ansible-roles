@@ -1,0 +1,20 @@
+---
+- name: Install packages required by the Django app inside virtualenv
+  pip: virtualenv={{ python_virtualenv_dir }} requirements={{ requirements_file }}
+  tags: [python,virtualenv]
+
+- name: Run Django database migrations
+  django_manage:
+    command: migrate
+    app_path: "{{ app_dir }}"
+    virtualenv: "{{ python_virtualenv_dir }}"
+    settings: "{{ django_settings_file }}"
+  tags: [django,migrate]
+
+- name: Run Django collectstatic
+  django_manage:
+    command: collectstatic
+    app_path: "{{ app_dir }}"
+    virtualenv: "{{ python_virtualenv_dir }}"
+    settings: "{{ django_settings_file }}"
+  tags: [django,collectstatic]
