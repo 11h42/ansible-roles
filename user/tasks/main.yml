@@ -1,0 +1,4 @@
+---
+- name: Create user used by the application
+  user: name={{ app_user }}
+  tags: [user]
