@@ -24,4 +24,5 @@
 
 - name: restart application
   supervisorctl: name={{ app_name }} state=restarted
+  ignore_errors: yes
   tags: [supervisor]
