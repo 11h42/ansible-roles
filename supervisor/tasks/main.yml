@@ -1,0 +1,27 @@
+---
+- name: Stop application
+  supervisorctl: name={{ app_name }} state=stopped
+  ignore_errors: yes
+  tags: [supervisor]
+
+- name: Install supervisor
+  apt: name=supervisor update_cache=yes state=installed
+  when: ansible_os_family == "Debian"
+  tags: [supervisor]
+
+- name: Ensure supervisor conf.d directory exist
+  file: path={{supervisor_conf_dir}}/conf.d/ state=directory mode=0755
+  tags: [supervisor]
+
+- name: Create the supervisor configurations for app
+  template: src=supervisor.conf.j2 dest={{supervisor_conf_dir}}/conf.d/{{ item }}.conf
+  with_items: supervisor_process.keys()
+  tags: [supervisor]
+
+- name: ensure supervisor service is started
+  service: name=supervisor state=started enabled=yes
+  tags: [supervisor]
+
+- name: restart application
+  supervisorctl: name={{ app_name }} state=restarted
+  tags: [supervisor]

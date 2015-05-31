@@ -5,15 +5,29 @@
   sudo: yes
 
   vars:
+    app_name: {{ APP_NAME }}
+    app_user: {{app_name}}
+
     nginx_site_availables:
-      default:
+      {{app_name}}:
         - listen      80
         - server_name {{ APP_FQDN }}
         - charset     utf-8
         - location ~ /static/ {root /var/www;}
         - location / {include uwsgi_params;uwsgi_pass unix:/tmp/uwsgi.sock;}
 
-    app_name: {{ APP_NAME }}
+    supervisor_process:
+      app:
+        - [program:app]
+        - command=/usr/local/{{app_name}}/.env/bin/uwsgi --ini /usr/local/{{app_name}}/config/uwsgi.ini
+        - numprocs=1
+        - process_name={{app_name}}
+        - stdout_logfile=/var/log/supervisor/{{app_name}}.supervisor.log
+        - loglevel=debug
+        - redirect_stderr=true
+        - autostart=true
+        - autorestart=true
+        - user={{app_user}}
 
     git_remote_url: {{ PROJECT_URL }}
     git_branch: master
@@ -26,3 +40,4 @@
     - archivist
     - python-virtualenv
     - mongodb
+    - supervisor

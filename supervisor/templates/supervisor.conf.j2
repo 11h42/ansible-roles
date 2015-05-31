@@ -1,0 +1,4 @@
+#{{ ansible_managed }}
+{% for process in supervisor_process[item] %}
+{{process}}
+{% endfor %}
