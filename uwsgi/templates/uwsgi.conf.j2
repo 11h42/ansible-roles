@@ -1,0 +1,4 @@
+#{{ ansible_managed }}
+{% for config in uwsgi_configs[item] %}
+{{config}}
+{% endfor %}

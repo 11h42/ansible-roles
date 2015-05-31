@@ -1,0 +1,17 @@
+---
+- name: Install build-essential
+  apt: name=build-essential update_cache=yes state=installed
+  tags: [uwsgi]
+
+- name: Install uwsgi in virtualenv
+  pip: name=uwsgi virtualenv={{ python_virtualenv_dir }}
+  tags: [uwsgi]
+
+- name: Assures config uwsgi dir exists
+  file: path={{ uwsgi_config_dir }} state=directory
+  tags: [uwsgi]
+
+- name: Copy uwsgi configuration file
+  template: src=uwsgi.conf.j2 dest={{ uwsgi_config_dir }}/{{ item }}.ini
+  with_items: uwsgi_configs.keys()
+  tags: [uwsgi]

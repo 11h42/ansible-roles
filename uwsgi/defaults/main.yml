@@ -1,0 +1,6 @@
+---
+uwsgi_config_dir: /tmp/uwsgi
+python_virtualenv_dir: /tmp/.env
+uwsgi_configs:
+  app:
+    - [uwsgi]

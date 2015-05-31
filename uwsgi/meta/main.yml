@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  author: Guillaume Vincent
+  description: uwsgi ansible role
+  company: Akema
+  license: BSD
+  min_ansible_version: 1.4
+  platforms:
+    - name: Ubuntu
+      versions:
+       - trusty
+dependencies: []
