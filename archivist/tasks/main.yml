@@ -1,14 +1,29 @@
 ---
+- name: Git clone application in tmp folder
+  local_action: command git clone -b {{git_branch}} {{git_remote_url}} tmp
+  sudo: no
+
 - name: Git archive application
-  local_action: command git archive --format zip --output {{app_name}}.zip --remote={{git_remote_url}} {{git_branch}}
+  local_action: command git archive --format zip --output {{app_name}}.zip --remote=tmp {{git_branch}}
   sudo: no
 
 - name: Create app dir if not exists
   file: path={{ app_dir }} state=directory mode=0755
+
+- name: Install unzip
+  apt: name={{ item }} state=present
+  with_items:
+    - unzip
+  when: ansible_os_family == "Debian"
+  tags: [packages,unzip]
 
 - name: Unarchive app
   unarchive: src={{app_name}}.zip dest={{ app_dir }}
   
 - name: delete archive
   local_action: command rm {{app_name}}.zip
+  sudo: no
+
+- name: delete tmp folder
+  local_action: command rm -rf tmp/
   sudo: no
