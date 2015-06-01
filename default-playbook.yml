@@ -12,23 +12,24 @@
     log_dir: "{{app_dir}}/log"
 
     python_virtualenv_dir: "{{app_dir}}/.env"
-    python3_enabled: true
+    python3_enabled: true # set to false to install python 2.7
 
     git_remote_url: {{ PROJECT_URL }}  # CHANGE ME
     git_branch: master
 
     uwsgi_config_dir: "{{app_dir}}/uwsgi"
+    uwsgi_socket_path: "/tmp/{{app_name}}.uwsgi.sock"
 
     nginx_site_availables:
-      app: # CHANGE ME put the name of your application (e.g. awesome_app: )
+      app: # CHANGE ME put the name of your application (app: become awesome_app: )
         - "listen      80"
         - "server_name {{app_fqdn}}"
         - "charset     utf-8"
         - "location ~ /(static|media)/ {root {{app_dir}}/www;}"
-        - "location / {include uwsgi_params;uwsgi_pass unix:/tmp/uwsgi.sock;}"
+        - "location / {include uwsgi_params;uwsgi_pass unix:{{uwsgi_socket_path}};}"
 
     uwsgi_configs:
-      app: # CHANGE ME put the name of your application  (e.g. awesome_app: )
+      app: # CHANGE ME put the name of your application  (app: become awesome_app: )
         - "[uwsgi]"
         - "chdir = {{app_dir}}"
         - "env = {{python_virtualenv_dir}}"
@@ -38,13 +39,13 @@
         - "callable = {{app_name}}"
         - "uid = {{app_user}}"
         - "gid = {{app_user}}"
-        - "socket = /tmp/{{app_name}}.uwsgi.sock"
+        - "socket = {{uwsgi_socket_path}}"
         - "chmod-socket = 666"
-        - "logto = {{log_dir}}/{{app_name}}.uwsgi.log"
+        - "logto = {{log_dir}}/uwsgi.{{app_name}}.log"
 
     supervisor_process:
-      app: # CHANGE ME put the name of your application
-        - "[program:app]" # put program:application_name  (e.g. awesome_app: )
+      app: # CHANGE ME put the name of your application (app: become awesome_app: )
+        - "[program:app]" # put program:application_name  (program:app become program:appawesome_app )
         - "command={{python_virtualenv_dir}}/bin/uwsgi --ini {{uwsgi_config_dir}}/{{app_name}}.ini"
         - "numprocs=1"
         - "process_name={{app_name}}"
@@ -65,3 +66,7 @@
     - supervisor
     - logging
 
+
+  tasks:
+    - name: change application folder permission
+      command: chown -R {{app_user}}:{{app_user}} {{app_dir}}
