@@ -63,6 +63,7 @@
     - nginx
     - archivist
     - python-virtualenv
+    - django
     - mongodb
     - uwsgi
     - supervisor
