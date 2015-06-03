@@ -1,5 +1,5 @@
 ---
 app_dir: /tmp/app
 python_virtualenv_dir: /tmp/.env
-requirements_file: requirements.txt
 django_settings_file: app/settings.py
+requirements_file: "{{ app_dir }}/requirements.txt"

@@ -1,6 +1,8 @@
 ---
 - name: Install packages required by the Django app inside virtualenv
-  pip: virtualenv={{ python_virtualenv_dir }} requirements={{ requirements_file }}
+  pip:
+    virtualenv: "{{ python_virtualenv_dir }}"
+    requirements: "{{ requirements_file }}"
   tags: [python,virtualenv]
 
 - name: Run Django database migrations
