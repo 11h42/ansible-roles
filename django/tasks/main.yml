@@ -13,6 +13,16 @@
     settings: "{{ django_settings_file }}"
   tags: [django,migrate]
 
+- name: Load Django fixtures
+  django_manage:
+    command: loaddata
+    fixtures: "{{ django_fixtures }}"
+    app_path: "{{ app_dir }}"
+    virtualenv: "{{ python_virtualenv_dir }}"
+    settings: "{{ django_settings_file }}"
+  when: django_fixtures is defined
+  tags: [django,loaddata]
+
 - name: Run Django collectstatic
   django_manage:
     command: collectstatic

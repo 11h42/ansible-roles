@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  author: Guillaume Vincent
+  author: Éouard Lopez, Guillaume Vincent
   description: django ansible role
   company: Akema
   license: BSD
