@@ -1,0 +1,4 @@
+---
+app_name: app
+app_dir: "/usr/local/{{app_name}}"
+frontend_dir: "{{app_dir}}/frontend"
