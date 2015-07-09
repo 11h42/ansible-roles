@@ -64,7 +64,7 @@
     - nginx
     - postgresql
     - archivist
-    - npm
+    - nodejs
     - bower
     - python-virtualenv
     - django
