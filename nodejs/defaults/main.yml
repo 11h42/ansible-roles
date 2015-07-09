@@ -2,4 +2,4 @@
 app_name: app
 app_dir: "/usr/local/{{app_name}}"
 frontend_dir: "{{app_dir}}/frontend"
-installer_path: "/tmp/nodejs-installer.bash"
+installer_path: "/tmp/nodejs-repo-installer.bash"
