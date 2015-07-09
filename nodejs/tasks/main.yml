@@ -1,0 +1,22 @@
+---
+- name: Get NodeSource repository installer (Node.js 0.12)
+  get_url: url=https://deb.nodesource.com/setup_0.12 dest={{installer_path}} mode=0640
+  when: ansible_os_family == "Debian"
+  tags: [debian,packages,nodejs]
+
+- name: Add NodeSource repository
+  shell: bash {{installer_path}}
+  when: ansible_os_family == "Debian"
+  tags: [debian,packages,nodejs]
+
+- name: Install Node.js
+  apt: pkg=nodejs
+  when: ansible_os_family == "Debian"
+  tags: [debian,nodejs]
+
+- name: Install packages based on package.json.
+  become_user: "{{ app_user }}"
+  npm: path={{ frontend_dir }}
+  when: ansible_os_family == "Debian"
+  tags: [debian,nodejs]
+
