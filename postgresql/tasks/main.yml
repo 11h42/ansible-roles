@@ -1,0 +1,30 @@
+---
+- name: install PostgreSQL and requirement
+  apt: pkg=postgresql,libpq-dev,python-psycopg2 state=present
+  when: ansible_os_family == "Debian"
+  tags: [packages,debian,postgresql]
+
+- name: ensure postgresql is started
+  service: name=postgresql state=started enabled=yes
+  when: ansible_os_family == "Debian"
+  tags: [debian,postgresql]
+
+- name: Create a new database for the project
+  postgresql_db: name={{ db_name }} owner={{ db_user }}
+  become_user: postgres
+  tags: [debian,postgresql]
+
+- name: Create user for the app
+  postgresql_user: db={{ db_name }} name={{ db_user }} state=present
+  become_user: postgres
+  tags: [debian,postgresql]
+
+- name: Grant all privileges on database {{ db_name }} to {{ db_user }};
+  postgresql_privs: >
+      db=postgres
+      obj={{ db_name }}
+      privs=ALL
+      type=database
+      role={{ db_user }}
+  become_user: postgres
+  tags: [debian,postgresql]

@@ -19,7 +19,10 @@
 
 - name: Unarchive app
   unarchive: src={{app_name}}.zip dest={{ app_dir }}
-  
+
+- name: Change ownership
+  file: recurse=yes owner={{ app_user }} group={{ app_user }} path={{ app_dir }}
+
 - name: delete archive
   local_action: command rm {{app_name}}.zip
   sudo: no

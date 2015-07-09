@@ -61,6 +61,7 @@
   roles: # remove role you dont need
     - user
     - nginx
+    - postgresql
     - archivist
     - python-virtualenv
     - django
@@ -72,4 +73,4 @@
 
   tasks:
     - name: change application folder permission
-      command: chown -R {{app_user}}:{{app_user}} {{app_dir}}
+      file: recurse=yes owner={{ app_user }} group={{ app_user }} path={{ app_dir }}
