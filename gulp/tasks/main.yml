@@ -1,10 +1,10 @@
 ---
 - name: Ensure gulp is present
   npm: name=gulp global=yes state=present
-  tags: [gulp]
+  tags: [frontend,gulp]
 
 - name: Build resources gulpfile.js.
   become_user: "{{ app_user }}"
   shell: gulp build chdir={{frontend_dir}}
-  tags: [gulp]
+  tags: [frontend,gulp]
 

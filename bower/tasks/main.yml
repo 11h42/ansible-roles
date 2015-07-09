@@ -1,10 +1,10 @@
 ---
 - name: Ensure bower is present
   npm: name=bower global=yes state=present
-  tags: [debian,packages,bower]
+  tags: [frontend,packages,bower]
 
 - name: Install packages based on bower.json.
   become_user: "{{ app_user }}"
   bower: path={{ frontend_dir }}
-  tags: [debian,bower]
+  tags: [frontend,bower]
 

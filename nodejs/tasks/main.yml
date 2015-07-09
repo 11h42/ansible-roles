@@ -18,5 +18,5 @@
   become_user: "{{ app_user }}"
   npm: path={{ frontend_dir }}
   when: ansible_os_family == "Debian"
-  tags: [debian,nodejs]
+  tags: [frontend,nodejs]
 
