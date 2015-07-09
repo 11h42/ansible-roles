@@ -15,6 +15,7 @@
   tags: [debian,npm]
 
 - name: Install packages based on package.json.
-  npm: path={{ frontend_dir }} production=yes
+  npm: path={{ frontend_dir }}
   when: ansible_os_family == "Debian"
   tags: [debian,npm]
+
