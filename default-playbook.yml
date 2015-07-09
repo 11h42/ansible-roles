@@ -61,6 +61,7 @@
   roles: # remove role you dont need
     - user
     - nginx
+    - postgresql
     - archivist
     - python-virtualenv
     - django
