@@ -10,6 +10,7 @@
     app_fqdn: "{{app_name}}.fr" # CHANGE ME
     app_dir: "/usr/local/{{app_name}}"
     log_dir: "{{app_dir}}/log"
+    frontend_dir: "{{app_dir}}/frontend/"
 
     python_virtualenv_dir: "{{app_dir}}/.env"
     python3_enabled: true # set to false to install python 2.7
@@ -63,6 +64,7 @@
     - nginx
     - postgresql
     - archivist
+    - npm
     - python-virtualenv
     - django
     - mongodb
