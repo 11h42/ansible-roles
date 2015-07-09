@@ -1,6 +1,6 @@
 ---
--name: Ensure bower is present
-  npm: name=bower state=present
+- name: Ensure bower is present
+  npm: name=bower global=yes state=present
   tags: [debian,packages,bower]
 
 - name: Install packages based on bower.json.
