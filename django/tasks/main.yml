@@ -1,11 +1,13 @@
 ---
 - name: Install packages required by the Django app inside virtualenv
+  become_user: "{{ app_user }}"
   pip:
     virtualenv: "{{ python_virtualenv_dir }}"
     requirements: "{{ requirements_file }}"
   tags: [python,virtualenv]
 
 - name: Run Django database migrations
+  become_user: "{{ app_user }}"
   django_manage:
     command: migrate
     app_path: "{{ app_dir }}"
@@ -14,6 +16,7 @@
   tags: [django,migrate]
 
 - name: Load Django fixtures
+  become_user: "{{ app_user }}"
   django_manage:
     command: loaddata
     fixtures: "{{ django_fixtures }}"
@@ -24,6 +27,7 @@
   tags: [django,loaddata]
 
 - name: Run Django collectstatic
+  become_user: "{{ app_user }}"
   django_manage:
     command: collectstatic
     app_path: "{{ app_dir }}"

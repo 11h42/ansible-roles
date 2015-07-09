@@ -10,3 +10,6 @@
 - include: FreeBSD.yml
   when: ansible_os_family == "FreeBSD"
   tags: [freebsd,python]
+
+- name: Change virtual env permissions and ownership to {{ app_user }}
+  file: recurse=yes owner={{ app_user }} group={{ app_user }} path={{ python_virtualenv_dir }}
