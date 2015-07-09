@@ -1,8 +1,13 @@
 ---
-- name: Add NodeSource Node.js 0.12 repo
-  shell: curl --silent --location https://deb.nodesource.com/setup_0.12 | sudo bash -
+- name: Get NodeSource repository installer (Node.js 0.12)
+  get_url: url=https://deb.nodesource.com/setup_0.12 dest={{installer_path}} mode=0640
   when: ansible_os_family == "Debian"
-  tags: [debian,npm]
+  tags: [debian,packages,npm]
+
+- name: Add NodeSource repository
+  shell: bash {{installer_path}}
+  when: ansible_os_family == "Debian"
+  tags: [debian,packages,npm]
 
 - name: Install Node.js
   apt: pkg=nodejs
