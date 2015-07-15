@@ -4,7 +4,7 @@ add submodule in roles/ folder
 
     mkdir deployment
     cd deployment
-    git submodule add ssh://git@gitlab.akema.fr:33622/akema/ansible-roles.git roles
+    git submodule add git@github.com:11h42/ansible-roles.git
     git submodule update --init
 
 copy default-playbook.yml
