@@ -9,7 +9,7 @@ add submodule in roles/ folder
 
 copy default-playbook.yml
 
-    cp roles/default-playbook.yml ${app_name}.yml
+    cp ansible-roles/default-playbook.yml ${app_name}.yml
     
 modify variables in the playbook to meet your need. Tip: try to remove all comment
 
