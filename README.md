@@ -4,12 +4,12 @@ add submodule in roles/ folder
 
     mkdir deployment
     cd deployment
-    git submodule add git@github.com:11h42/ansible-roles.git
+    git submodule add git@github.com:11h42/ansible-roles.git roles
     git submodule update --init
 
 copy default-playbook.yml
 
-    cp ansible-roles/default-playbook.yml ${app_name}.yml
+    cp roles/default-playbook.yml ${app_name}.yml
     
 modify variables in the playbook to meet your need. Tip: try to remove all comment
 
