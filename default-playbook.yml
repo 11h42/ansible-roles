@@ -38,8 +38,7 @@
         - "env = {{python_virtualenv_dir}}"
         - "pythonpath = %(chdir)"
         - "processes = 1"
-        - "module = run"
-        - "callable = {{app_name}}"
+        - "module = app.wsgi" # CHANGE ME put the name of your settings.py dir  (app.wsgi become awesome_app.wsgi )
         - "uid = {{app_user}}"
         - "gid = {{app_user}}"
         - "socket = {{uwsgi_socket_path}}"
