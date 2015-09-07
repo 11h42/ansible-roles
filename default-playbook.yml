@@ -21,6 +21,7 @@
     uwsgi_config_dir: "{{app_dir}}/uwsgi"
     uwsgi_socket_path: "/tmp/{{app_name}}.uwsgi.sock"
 
+    nginx_disable_unmanaged: false
     nginx_site_availables:
       app: # CHANGE ME put the name of your application (app: become awesome_app: )
         - "listen      80"
