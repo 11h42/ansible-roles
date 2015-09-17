@@ -1,3 +1,5 @@
 ---
 db_name: postgres_db
 db_user: postgres_user
+db_enable_dump: true
+db_dump: "{{ ansible_date_time.date }}.{{ ansible_date_time.hour }}h{{ ansible_date_time.minute }}.{{ ansible_hostname }}.sql.gz"

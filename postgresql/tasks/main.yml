@@ -29,3 +29,19 @@
   become_user: postgres
   tags: [debian,postgresql]
 
+- name: Dump database as GZip
+  become_user: "{{ app_user }}"
+  shell: pg_dump --username={{ db_user }} --dbname={{ db_name }} | gzip > /tmp/{{ db_dump }}
+  when: db_dump is defined and db_enable_dump
+  tags: [debian,postgresql,dumpdata]
+
+- name: Fetch database dump in playbook directory
+  fetch: src=/tmp/{{ db_dump }} dest=./{{ db_dump }} flat=yes fail_on_missing=yes
+  when: db_dump is defined and db_enable_dump
+  tags: [debian,postgresql,dumpdata]
+
+- name: Remove database dump from remote
+  file: path=/tmp/{{ db_dump }} state=absent
+  when: db_dump is defined and db_enable_dump
+  tags: [debian,postgresql,dumpdata]
+
