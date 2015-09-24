@@ -9,4 +9,4 @@ galaxy_info:
     - name: Ubuntu
       versions:
        - trusty
-dependencies: [bower]
+dependencies: []
