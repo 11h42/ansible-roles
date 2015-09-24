@@ -1,12 +1,12 @@
 ---
-- name: Stop application
-  supervisorctl: name={{ app_name }} state=stopped
-  ignore_errors: yes
-  tags: [supervisor]
-
 - name: Install supervisor
   apt: name=supervisor update_cache=yes state=installed
   when: ansible_os_family == "Debian"
+  tags: [supervisor]
+
+- name: Stop application
+  supervisorctl: name={{ app_name }} state=stopped
+  ignore_errors: yes
   tags: [supervisor]
 
 - name: Ensure supervisor conf.d directory exist
