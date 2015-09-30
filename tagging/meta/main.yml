@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  author: Édouard Lopez
+  description: Tagging ansible role (mark deployed version)
+  company: Akema
+  license: BSD
+  min_ansible_version: 1.4
+  platforms:
+    - name: Ubuntu
+      versions:
+       - trusty
+dependencies: []

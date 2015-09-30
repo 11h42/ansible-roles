@@ -1,0 +1,3 @@
+---
+git_remote_url: ssh://git@server.org/change/me # CHANGE ME
+git_deploy_tag: "@{{ git_branch }}"

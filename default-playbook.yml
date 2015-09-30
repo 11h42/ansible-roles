@@ -74,6 +74,7 @@
     - uwsgi
     - supervisor
     - logging
+    - tagging
 
 
   tasks:
