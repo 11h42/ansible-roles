@@ -10,7 +10,7 @@
   tags: [debian,packages,nodejs]
 
 - name: Install Node.js
-  apt: pkg=nodejs
+  apt: pkg=nodejs state=latest update_cache=yes
   when: ansible_os_family == "Debian"
   tags: [debian,nodejs]
 
