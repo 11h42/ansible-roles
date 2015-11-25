@@ -18,7 +18,16 @@ modify variables in the playbook to meet your need. Tip: try to remove all comme
 deploy your application (be sure you can ssh to your server and run)
 
     ansible-playbook --ask-sudo-pass -i '192.168.5.x,' ${app_name}.yml
-    
+   
+# Adding specific roles
+
+create a file named `ansible.cfg` containing:
+
+    [defaults]
+    roles_path = ./local-roles
+
+create a folder `local-roles` and put your custom roles into
+
 # Roles working with FreeBSD (10.x) and Ubuntu (14.04)
 
   * python-virtualenv
