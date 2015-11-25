@@ -16,6 +16,7 @@
 - name: Create the supervisor configurations for app
   template: src=supervisor.conf.j2 dest={{supervisor_conf_dir}}/conf.d/{{ item }}.conf
   with_items: supervisor_process.keys()
+  notify: reload supervisord config
   tags: [supervisor]
 
 - name: ensure supervisor service is started

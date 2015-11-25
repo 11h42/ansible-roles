@@ -1,0 +1,7 @@
+---
+- name: reload supervisord config
+  command: supervisorctl reload
+  notify: apply supervisord config
+
+- name: apply supervisord config
+  command: supervisorctl apply
