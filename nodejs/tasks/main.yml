@@ -1,6 +1,6 @@
 ---
 - name: Get NodeSource repository installer (Node.js 0.12)
-  get_url: url=https://deb.nodesource.com/setup_0.12 dest={{installer_path}} mode=0640
+  get_url: url=http://deb.nodesource.com/setup_0.12 dest={{installer_path}} mode=0640
   when: ansible_os_family == "Debian"
   tags: [debian,packages,nodejs]
 
